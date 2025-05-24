@@ -1,0 +1,45 @@
+; C:\Users\user\Desktop\SIM200 test\Request_command_manual.xmt
+;   CAN messages saved by PCAN-View v5.1.1.908
+;
+; Columns descriptions:
+; ~~~~~~~~~~~~~~~~~~~~~
+; +Message ID
+; |            +Cycle time in ms (0=manual)
+; |            |  +Data length
+; |            |  |  +Frame type
+; |            |  |  |  +Message data
+; |            |  |  |  |
+0A100101h      0  3  D 01h 00h 00h ; Manufacturer Data - Get part name (part 0)
+0A100101h      0  3  D 02h 00h 00h ; Manufacturer Data - Get part name (part 1)
+0A100101h      0  3  D 03h 00h 00h ; Manufacturer Data - Get part name (part 3)
+0A100101h      0  3  D 04h 00h 00h ; Manufacturer Data - Get part name (part 4)
+0A100101h      0  3  D 05h 00h 00h ; Manufacturer Data - Get FW version
+0A100101h      0  3  D 06h 00h 00h ; Manufacturer Data - Get FW version info (part 0) 
+0A100101h      0  3  D 07h 00h 00h ; Manufacturer Data - Get FW version info (part 1)
+0A100101h      0  3  D 08h 00h 00h ; Manufacturer Data - Get FW version info (part 2)
+0A100101h      0  3  D 09h 00h 00h ; Manufacturer Data - Get serial number (part 0)
+0A100101h      0  3  D 0Ah 00h 00h ; Manufacturer Data - Get serial number (part 1)
+0A100101h      0  3  D 0Bh 00h 00h ; Manufacturer Data - Get serial number (part 2)
+0A100101h      0  3  D 0Ch 00h 00h ; Manufacturer Data - Get serial number (part 3)
+0A100101h      0  3  D 60h 00h 00h ; Measurements - Get high-resolution Vneg
+0A100101h      0  3  D 61h 00h 00h ; Measurements - Get high-resolution Vpos
+0A100101h      0  3  D 62h 00h 00h ; Measurements - Get high-resolution Vexc
+0A100101h      0  3  D 63h 00h 00h ; Measurements - Get high-resolution Vbat
+0A100101h      0  3  D 64h 00h 00h ; Measurements - Get high-resolution Vpower
+0A100101h      0  3  D 65h 00h 00h ; Measurements - Get high-resolution temperature
+0A100101h      0  3  D 66h 00h 00h ; Measurements - Get high-resolution Vcal_neg
+0A100101h      0  3  D 67h 00h 00h ; Measurements - Get high-resolution Vcal_pos
+0A100101h      0  3  D 6Fh 00h 00h ; Measurements - Get uptime counter
+0A100101h      0  3  D C1h 01h 23h ; Commands - Reset command
+0A100101h      0  3  D C2h ECh 00h ; Commands - Disable command
+0A100101h      0  3  D C3h 28h D5h ; Commands - Setup mode command
+0A100101h      0  3  D E0h 00h 00h ; Electrical isolation - Get isolation state
+0A100101h      0  3  D E1h 00h 00h ; Electrical isolation - Get isolation resistance
+0A100101h      0  3  D E2h 00h 00h ; Electrical isolation - Get system Y-capacitances
+0A100101h      0  3  D E3h 00h 00h ; Electrical isolation - Get HV rail measurements
+0A100101h      0  3  D E4h 00h 00h ; Electrical isolation - Get battery voltage
+0A100101h      0  3  D E5h 00h 00h ; Electrical isolation - Get error flags
+0A100101h      0  3  D E6h 00h 00h ; Electrical isolation - Get dynamic electrical isolation
+0A100101h      0  3  D E7h 00h 00h ; Electrical isolation - Get dynamic capacitive energy
+0A100101h      0  3  D F0h 00h 00h ; Configuration - Get max voltage setting
+0A100101h      0  3  D F1h 00h 00h ; Configuration - Get isolation threshold settings

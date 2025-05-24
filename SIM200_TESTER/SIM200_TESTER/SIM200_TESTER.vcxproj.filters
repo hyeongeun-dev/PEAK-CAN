@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CANReceiver.cpp">
+    <ClCompile Include="SIM200_TESTER.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -23,10 +23,10 @@
     <ClInclude Include="include\PCANBasic.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
+    <ClInclude Include="SIM200.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="sim200.h">
+    <ClInclude Include="common.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

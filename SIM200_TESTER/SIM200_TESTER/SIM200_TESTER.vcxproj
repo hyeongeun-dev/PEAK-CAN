@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{27cf116d-9f09-48a5-88bd-e73a98541d63}</ProjectGuid>
-    <RootNamespace>CANReceiver</RootNamespace>
+    <ProjectGuid>{d8a7143d-1db5-4048-a2b3-88b34471748a}</ProjectGuid>
+    <RootNamespace>SIM200TESTER</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -109,8 +109,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);PCANBasic.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,12 +130,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CANReceiver.cpp" />
+    <ClCompile Include="SIM200_TESTER.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="include\PCANBasic.h" />
-    <ClInclude Include="sim200.h" />
+    <ClInclude Include="SIM200.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

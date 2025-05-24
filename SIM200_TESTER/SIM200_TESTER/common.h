@@ -1,8 +1,7 @@
 #pragma once
 #include <windows.h>
 #include <iostream>
-#include <array>
 #include <string>
-#include "PCANBasic.h"
+#include <array>
 
 using namespace std;

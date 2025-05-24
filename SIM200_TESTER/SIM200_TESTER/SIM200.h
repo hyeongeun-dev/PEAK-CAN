@@ -57,13 +57,15 @@
 array <string, PART_NAME_SIZE> part_name;
 array <string, FW_INFO_SIZE> version_info;
 
+string SIM200_part_name;
+
 template <size_t N>
 void append_part_data(array<string, N>& target_array, int part_index, const TPCANMsg& msg) {
     if (part_index < 0 || part_index >= static_cast<int>(target_array.size())) {
-        cerr << " 肋给等 part index: " << part_index << endl;
+        cerr << "肋给等 part index: " << part_index << endl;
         return;
     }
-
+    
     string& dest = target_array[part_index];
     if (!dest.empty()) dest.clear();
     for (int i = 1; i < 8; ++i) {
