@@ -58,6 +58,10 @@ array <string, PART_NAME_SIZE> part_name;
 array <string, FW_INFO_SIZE> version_info;
 
 string SIM200_part_name;
+string SIM200_fw_version;
+
+uint32_t SIM200_serial_number[4];
+int32_t SIM200_vnes_hi_res;
 
 template <size_t N>
 void append_part_data(array<string, N>& target_array, int part_index, const TPCANMsg& msg) {
@@ -73,3 +77,33 @@ void append_part_data(array<string, N>& target_array, int part_index, const TPCA
             dest += static_cast<char>(msg.DATA[i]);
     }
 }
+
+typedef enum Endian{
+    big_endian,
+    little_endian
+};
+
+template <typename T>
+T parseBytesToInt(const uint8_t* data, size_t length, Endian endian = Endian::Big) {
+    static_assert(std::is_integral<T>::value, "T must be an integral type");
+
+    if (length < 1 || length > 4)
+        throw invalid_argument("Length must be between 1 and 4 bytes");
+
+    uint32_t value = 0;
+
+    if (endian == Endian::big_endian) {
+        for (size_t i = 0; i < length; ++i) {
+            value = (value << 8) | data[i];
+        }
+    }
+    else { // Endian::little_endian
+        for (size_t i = 0; i < length; ++i) {
+            value |= (data[i] << (8 * i));
+        }
+    }
+
+    return static_cast<T>(value);
+}
+
+

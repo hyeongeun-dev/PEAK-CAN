@@ -10,22 +10,22 @@ bool keepRunning = true;
 BOOL WINAPI ConsoleHandler(DWORD signal) {
     switch (signal) {
     case CTRL_C_EVENT:
-        std::cout << "\n[Ctrl+C] 종료 요청됨\n";
+        cout << "\n[Ctrl+C] 종료 요청됨\n";
         break;
     case CTRL_CLOSE_EVENT:
-        std::cout << "\n[콘솔창 X] 종료 요청됨\n";
+        cout << "\n[콘솔창 X] 종료 요청됨\n";
         break;
     case CTRL_BREAK_EVENT:
-        std::cout << "\n[Ctrl+Break] 종료 요청됨\n";
+        cout << "\n[Ctrl+Break] 종료 요청됨\n";
         break;
     case CTRL_LOGOFF_EVENT:
-        std::cout << "\n[로그아웃] 종료 요청됨\n";
+        cout << "\n[로그아웃] 종료 요청됨\n";
         break;
     case CTRL_SHUTDOWN_EVENT:
-        std::cout << "\n[시스템 종료] 종료 요청됨\n";
+        cout << "\n[시스템 종료] 종료 요청됨\n";
         break;
     default:
-        std::cout << "\n[기타 종료] 요청됨\n";
+        cout << "\n[기타 종료] 요청됨\n";
         break;
     }
 
@@ -40,12 +40,12 @@ int main() {
     // CAN 초기화
     TPCANStatus status = CAN_Initialize(PCAN_USBBUS1, PCAN_BAUD_500K);
     if (status != PCAN_ERROR_OK) {
-        std::cout << "CAN 초기화 실패" << std::endl;
+        cout << "CAN 초기화 실패" << endl;
         return -1;
     }
 
-    std::cout << "CAN 초기화 성공!" << std::endl;
-    std::cout << "Ctrl+C 또는 콘솔 X버튼을 눌러 종료하세요\n";
+    cout << "CAN 초기화 성공!" << endl;
+    cout << "Ctrl+C 또는 콘솔 X버튼을 눌러 종료하세요\n";
 
     // 수신 루프
     while (keepRunning) {
@@ -89,141 +89,157 @@ int main() {
             break;
 
         case FUNC_GET_FW_VERSION:
-            std::cout << "Get FW version" << std::endl;
+            cout << "Get FW version" << endl;
+            SIM200_fw_version = to_string(msg.DATA[1]) + "." + to_string(msg.DATA[2]) + "." + to_string(msg.DATA[3]) + "." + to_string(msg.DATA[4]);
+            cout << "SIM200_fw_version : " << SIM200_fw_version << endl;
             break;
 
         case FUNC_GET_FW_INFO_0:
-            std::cout << "Get FW version info (part 0)" << std::endl;
+            cout << "Get FW version info (part 0)" << endl;
+            append_part_data(version_info, 0, msg);
+            cout << version_info[0] << endl;
             break;
 
         case FUNC_GET_FW_INFO_1:
-            std::cout << "Get FW version info (part 1)" << std::endl;
+            cout << "Get FW version info (part 1)" << endl;
+            append_part_data(version_info, 1, msg);
+            cout << version_info[1] << endl;
             break;
 
         case FUNC_GET_FW_INFO_2:
-            std::cout << "Get FW version info (part 2)" << std::endl;
+            cout << "Get FW version info (part 2)" << endl;
+            append_part_data(version_info, 2, msg);
+            cout << version_info[2] << endl;
             break;
 
         case FUNC_GET_SERIAL_0:
-            std::cout << "Get serial number (part 0)" << std::endl;
+            cout << "Get serial number (part 0)" << endl;
+            SIM200_serial_number[0] = parseBytesToInt<uint32_t>(&msg.DATA[1], 4, big_endian);
+            cout << to_string(SIM200_serial_number[0]) << endl;
             break;
 
         case FUNC_GET_SERIAL_1:
-            std::cout << "Get serial number (part 1)" << std::endl;
+            cout << "Get serial number (part 1)" << endl;
+            SIM200_serial_number[1] = parseBytesToInt<uint32_t>(&msg.DATA[1], 4, big_endian);
+            cout << to_string(SIM200_serial_number[1]) << endl;
             break;
 
         case FUNC_GET_SERIAL_2:
-            std::cout << "Get serial number (part 2)" << std::endl;
+            cout << "Get serial number (part 2)" << endl;
+            SIM200_serial_number[2] = parseBytesToInt<uint32_t>(&msg.DATA[1], 4, big_endian);
+            cout << to_string(SIM200_serial_number[2]) << endl;
             break;
 
         case FUNC_GET_SERIAL_3:
-            std::cout << "Get serial number (part 3)" << std::endl;
+            cout << "Get serial number (part 3)" << endl;
+            SIM200_serial_number[3] = parseBytesToInt<uint32_t>(&msg.DATA[1], 4, big_endian);
+            cout << to_string(SIM200_serial_number[3]) << endl;
             break;
 
             // Measurements
         case FUNC_GET_VNEG:
-            std::cout << "Get high-resolution Vneg" << std::endl;
+            cout << "Get high-resolution Vneg" << endl;
             break;
 
         case FUNC_GET_VPOS:
-            std::cout << "Get high-resolution Vpos" << std::endl;
+            cout << "Get high-resolution Vpos" << endl;
             break;
 
         case FUNC_GET_VEXC:
-            std::cout << "Get high-resolution Vexc" << std::endl;
+            cout << "Get high-resolution Vexc" << endl;
             break;
 
         case FUNC_GET_VBATT:
-            std::cout << "Get high-resolution Vbatt" << std::endl;
+            cout << "Get high-resolution Vbatt" << endl;
             break;
 
         case FUNC_GET_VPOWER:
-            std::cout << "Get high-resolution Vpower" << std::endl;
+            cout << "Get high-resolution Vpower" << endl;
             break;
 
         case FUNC_GET_TEMP:
-            std::cout << "Get high-resolution temperature" << std::endl;
+            cout << "Get high-resolution temperature" << endl;
             break;
 
         case FUNC_GET_VCAL_NEG:
-            std::cout << "Get high-resolution Vcal_neg" << std::endl;
+            cout << "Get high-resolution Vcal_neg" << endl;
             break;
 
         case FUNC_GET_VCAL_POS:
-            std::cout << "Get high-resolution Vcal_pos" << std::endl;
+            cout << "Get high-resolution Vcal_pos" << endl;
             break;
 
         case FUNC_GET_UPTIME:
-            std::cout << "Get uptime counter" << std::endl;
+            cout << "Get uptime counter" << endl;
             break;
 
             // Electrical isolation
         case FUNC_GET_ISO_STATE:
-            std::cout << "Get isolation state" << std::endl;
+            cout << "Get isolation state" << endl;
             break;
 
         case FUNC_GET_ISO_RESISTANCE:
-            std::cout << "Get isolation resistances" << std::endl;
+            cout << "Get isolation resistances" << endl;
             break;
 
         case FUNC_GET_Y_CAP:
-            std::cout << "Get system Y-capacitances" << std::endl;
+            cout << "Get system Y-capacitances" << endl;
             break;
 
         case FUNC_GET_HV_MEASURE:
-            std::cout << "Get HV rail measurements" << std::endl;
+            cout << "Get HV rail measurements" << endl;
             break;
 
         case FUNC_GET_BATTERY_V:
-            std::cout << "Get battery voltage" << std::endl;
+            cout << "Get battery voltage" << endl;
             break;
 
         case FUNC_GET_ERROR_FLAGS:
-            std::cout << "Get error flags" << std::endl;
+            cout << "Get error flags" << endl;
             break;
 
         case FUNC_GET_DYN_ISO:
-            std::cout << "Get dynamic electrical isolation" << std::endl;
+            cout << "Get dynamic electrical isolation" << endl;
             break;
 
         case FUNC_GET_DYN_CAP:
-            std::cout << "Get dynamic capacitive energy" << std::endl;
+            cout << "Get dynamic capacitive energy" << endl;
             break;
 
             // Configuration
         case FUNC_GET_MAX_VOLTAGE:
-            std::cout << "Get max voltage setting" << std::endl;
+            cout << "Get max voltage setting" << endl;
             break;
 
         case FUNC_GET_ISO_THRESHOLD:
-            std::cout << "Get isolation threshold settings" << std::endl;
+            cout << "Get isolation threshold settings" << endl;
             break;
 
             // Commands
         case FUNC_RESET:
             if (msg.DATA[1] == 0x01 && msg.DATA[2] == 0x23)
-                std::cout << "Reset command" << std::endl;
+                cout << "Reset command" << endl;
             else
-                std::cout << "Unknown C1 command format" << std::endl;
+                cout << "Unknown C1 command format" << endl;
             break;
 
         case FUNC_DISABLE:
             if (msg.DATA[1] == 0xEC && msg.DATA[2] == 0x00)
-                std::cout << "Disable command" << std::endl;
+                cout << "Disable command" << endl;
             else
-                std::cout << "Unknown C2 command format" << std::endl;
+                cout << "Unknown C2 command format" << endl;
             break;
 
         case FUNC_SETUP_MODE:
             if (msg.DATA[1] == 0x28 && msg.DATA[2] == 0xD5)
-                std::cout << "Setup mode command" << std::endl;
+                cout << "Setup mode command" << endl;
             else
-                std::cout << "Unknown C3 command format" << std::endl;
+                cout << "Unknown C3 command format" << endl;
             break;
 
             // Default
         default:
-            std::cout << "Unknown command: 0x" << std::hex << (int)msg.DATA[0] << std::endl;
+            cout << "Unknown command: 0x" << hex << (int)msg.DATA[0] << endl;
             break;
         }
 
@@ -231,9 +247,9 @@ int main() {
     }
 
     // 종료 처리
-    std::cout << "CAN 장치 해제 중...\n";
+    cout << "CAN 장치 해제 중...\n";
     CAN_Uninitialize(PCAN_USBBUS1);
-    std::cout << "정상 종료됨.\n";
+    cout << "정상 종료됨.\n";
 
     return 0;
 }
